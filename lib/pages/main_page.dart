@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uas_mob/pages/exercisePage.dart';
 import 'package:uas_mob/pages/profile_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -13,7 +14,7 @@ class _MainPageState extends State<MainPage> {
 
   // content
   static const List<Widget> _pages = <Widget>[
-    Text("Exercise Page"),
+    ExercisePage(),
     Icon(
       Icons.camera,
       size: 150,
@@ -43,10 +44,10 @@ class _MainPageState extends State<MainPage> {
               width: 30,
               height: 30,
             ),
-            SizedBox(
+            const SizedBox(
               width: 15,
             ),
-            Text('Diet Yuk!')
+            const Text('Diet Yuk!')
           ],
         ),
       ),

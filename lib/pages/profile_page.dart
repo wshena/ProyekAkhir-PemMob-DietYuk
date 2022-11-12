@@ -24,10 +24,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
+        centerTitle: false,
         elevation: 0,
-        leading: IconButton(
-            onPressed: () {}, icon: const Icon(Icons.arrow_back_rounded)),
         title: const Text('Profile Page'),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.edit_note)),
