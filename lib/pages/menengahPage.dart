@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
 import 'package:uas_mob/pages/exercisePage.dart';
+import 'package:uas_mob/pages/main_page.dart';
 
 class MenengahPage extends StatefulWidget {
   const MenengahPage({super.key});
@@ -13,7 +14,6 @@ class MenengahPage extends StatefulWidget {
 class _MenengahPageState extends State<MenengahPage> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
     List<Olahraga> olahraga = [
@@ -35,11 +35,8 @@ class _MenengahPageState extends State<MenengahPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const ExercisePage(),
-              ),
-            );
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const MainPage()));
           },
         ),
         bottom: PreferredSize(

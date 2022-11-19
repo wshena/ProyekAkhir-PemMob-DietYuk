@@ -1,10 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:uas_mob/pages/login_page.dart';
-import 'package:uas_mob/pages/main_page.dart';
-import 'package:uas_mob/pages/profile_page.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:uas_mob/pages/welcomePage.dart';
 
-void main() {
+import 'data/models/user_model.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserModelAdapter());
+  await Hive.openBox<UserModel>('users');
   runApp(const MyApp());
 }
 
@@ -38,8 +43,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // splash screnn config
     Timer(
         const Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginPage())));
+        () => Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const WelcomePage())));
   }
 
   // splash screen widget

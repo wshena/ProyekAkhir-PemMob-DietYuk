@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
 import 'package:uas_mob/pages/exercisePage.dart';
+import 'package:uas_mob/pages/main_page.dart';
 
 class LanjutanPage extends StatefulWidget {
   const LanjutanPage({super.key});
@@ -13,7 +14,6 @@ class LanjutanPage extends StatefulWidget {
 class _LanjutanPageState extends State<LanjutanPage> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
     List<Olahraga> olahraga = [
@@ -37,11 +37,8 @@ class _LanjutanPageState extends State<LanjutanPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const ExercisePage(),
-              ),
-            );
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const MainPage()));
           },
         ),
         bottom: PreferredSize(
@@ -119,7 +116,6 @@ class _LanjutanPageState extends State<LanjutanPage> {
                     child: ListTile(
                   title: Text(studentone.nama!),
                   subtitle: Text(studentone.jumlah!),
-                  trailing: Text("Hehehe"),
                 ));
               }).toList(),
             )

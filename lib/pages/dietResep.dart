@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:uas_mob/pages/main_page.dart';
 
 class DietResepPage extends StatefulWidget {
   const DietResepPage({super.key});
@@ -16,7 +17,10 @@ class _DietResepPageState extends State<DietResepPage> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const MainPage()));
+          },
         ),
         title: Row(
           // ignore: prefer_const_literals_to_create_immutables

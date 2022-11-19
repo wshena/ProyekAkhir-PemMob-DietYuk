@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
 import 'package:uas_mob/pages/exercisePage.dart';
+import 'package:uas_mob/pages/main_page.dart';
 
 class PemulaPage extends StatefulWidget {
   const PemulaPage({super.key});
@@ -13,7 +14,6 @@ class PemulaPage extends StatefulWidget {
 class _PemulaPageState extends State<PemulaPage> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
     List<Olahraga> olahraga = [
@@ -33,11 +33,8 @@ class _PemulaPageState extends State<PemulaPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const ExercisePage(),
-              ),
-            );
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const MainPage()));
           },
         ),
         bottom: PreferredSize(
