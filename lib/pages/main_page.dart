@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uas_mob/pages/doingOlahraga/progressPage.dart';
+import 'package:uas_mob/pages/progressPage.dart';
 import 'package:uas_mob/pages/exercisePage.dart';
 import 'package:uas_mob/pages/profile_page.dart';
 
