@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
+import 'package:uas_mob/pages/doingOlahraga/doingOlahragaLanjutan.dart';
 import 'package:uas_mob/pages/exercisePage.dart';
 import 'package:uas_mob/pages/main_page.dart';
 
@@ -47,7 +48,7 @@ class _LanjutanPageState extends State<LanjutanPage> {
             margin: const EdgeInsets.only(bottom: 20, left: 20),
             alignment: Alignment.centerLeft,
             child: const Text(
-              "OLAHRAGA MENENGAH",
+              "OLAHRAGA LANJUTAN",
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -64,7 +65,12 @@ class _LanjutanPageState extends State<LanjutanPage> {
                     backgroundColor: Colors.blue,
                     minimumSize: const Size.fromHeight(50),
                     shape: const StadiumBorder()),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DoingOlahragaLanjutan()));
+                },
                 child: const Text("Mulai"),
               )),
           children: [
@@ -100,7 +106,7 @@ class _LanjutanPageState extends State<LanjutanPage> {
                           width: 10,
                         ),
                         const Text(
-                          "16 Latihan",
+                          "8 Latihan",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         )

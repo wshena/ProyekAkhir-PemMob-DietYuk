@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
+import 'package:uas_mob/pages/doingOlahraga/doingOlahragaMenengah.dart';
 import 'package:uas_mob/pages/exercisePage.dart';
 import 'package:uas_mob/pages/main_page.dart';
 
@@ -62,7 +63,12 @@ class _MenengahPageState extends State<MenengahPage> {
                     backgroundColor: Colors.blue,
                     minimumSize: const Size.fromHeight(50),
                     shape: const StadiumBorder()),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DoingOlahragaMenengah()));
+                },
                 child: const Text("Mulai"),
               )),
           children: [
@@ -98,7 +104,7 @@ class _MenengahPageState extends State<MenengahPage> {
                           width: 10,
                         ),
                         const Text(
-                          "16 Latihan",
+                          "6 Latihan",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         )

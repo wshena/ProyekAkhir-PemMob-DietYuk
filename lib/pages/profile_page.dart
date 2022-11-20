@@ -71,14 +71,6 @@ class _ProfilePageState extends State<ProfilePage> {
     conGender.text = userModel.gender;
 
     deleteUser(userModel);
-
-    // if you want to do with key you can use that too.
-
-    //box.put("myKey", user);
-    //final myBox = Boxes.getUsers();
-    //final myUser = myBox.get("myKey");
-    //myBox.values; // Access All Values
-    //myBox.keys; // Access By Key
   }
 
   Future<void> deleteUser(UserModel userModel) async {
@@ -127,7 +119,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter your name';
                                     }
-                                    return null;
                                   },
                                 ),
                                 TextFormField(
@@ -139,7 +130,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter your email';
                                     }
-                                    return null;
                                   },
                                 ),
                                 TextFormField(
@@ -151,7 +141,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter your weight';
                                     }
-                                    return null;
                                   },
                                 ),
                                 TextFormField(
@@ -163,7 +152,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter your height';
                                     }
-                                    return null;
                                   },
                                 ),
                                 TextFormField(
@@ -211,7 +199,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter your birthday';
                                     }
-                                    return null;
                                   },
                                 ),
                                 Column(
@@ -251,7 +238,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           TextButton(
                               child: const Text("Submit"),
                               onPressed: () {
-                                // your code
+                                addUser(
+                                    conName.text,
+                                    conEmail.text,
+                                    conWeight.text,
+                                    conHeight.text,
+                                    conPob.text,
+                                    conDob.text,
+                                    conGender.text);
                               }),
                           TextButton(
                               onPressed: () {}, child: const Text("Cancel"))

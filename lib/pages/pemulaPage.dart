@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
+import 'package:uas_mob/pages/doingOlahraga/doingOlahragaPemula.dart';
 import 'package:uas_mob/pages/exercisePage.dart';
 import 'package:uas_mob/pages/main_page.dart';
 
@@ -60,7 +61,12 @@ class _PemulaPageState extends State<PemulaPage> {
                     backgroundColor: Colors.blue,
                     minimumSize: const Size.fromHeight(50),
                     shape: const StadiumBorder()),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DoingOlahraga()));
+                },
                 child: const Text("Mulai"),
               )),
           children: [
@@ -96,7 +102,7 @@ class _PemulaPageState extends State<PemulaPage> {
                           width: 10,
                         ),
                         const Text(
-                          "16 Latihan",
+                          "4 Latihan",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         )
@@ -107,11 +113,11 @@ class _PemulaPageState extends State<PemulaPage> {
               ),
             ),
             Column(
-              children: olahraga.map((studentone) {
+              children: olahraga.map((item) {
                 return Card(
                     child: ListTile(
-                  title: Text(studentone.nama!),
-                  subtitle: Text(studentone.jumlah!),
+                  title: Text(item.nama!),
+                  subtitle: Text(item.jumlah!),
                 ));
               }).toList(),
             )

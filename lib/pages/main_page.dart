@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uas_mob/pages/doingOlahraga/progressPage.dart';
 import 'package:uas_mob/pages/exercisePage.dart';
 import 'package:uas_mob/pages/profile_page.dart';
 
@@ -15,10 +16,7 @@ class _MainPageState extends State<MainPage> {
   // content
   static const List<Widget> _pages = <Widget>[
     ExercisePage(),
-    Icon(
-      Icons.camera,
-      size: 150,
-    ),
+    ProgressPage(),
     ProfilePage()
     // Icon(
     //   Icons.chat,

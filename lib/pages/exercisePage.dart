@@ -169,38 +169,6 @@ class ExercisePage extends StatelessWidget {
                   ),
                 ),
               ),
-              // ElevatedButton(
-              //   style: ElevatedButton.styleFrom(
-              //       padding: EdgeInsets.all(0),
-              //       backgroundColor: Colors.white,
-              //       side: BorderSide(width: 0, color: Colors.white),
-              //       elevation: 0),
-              //   onPressed: () {},
-              //   child: Container(
-              //     width: width * 0.9,
-              //     height: 100,
-              //     padding: const EdgeInsets.only(left: 20, bottom: 10),
-              //     margin: const EdgeInsets.only(bottom: 20),
-              //     decoration: const BoxDecoration(
-              //         // color: Colors.limeAccent,
-              //         image: DecorationImage(
-              //             image: AssetImage("assets/images/olahBg.jpg"),
-              //             fit: BoxFit.cover)),
-              //     child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.end,
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         const Text(
-              //           'PROGRAM OLAHRAGA',
-              //           style: TextStyle(
-              //               color: Colors.white,
-              //               fontWeight: FontWeight.bold,
-              //               fontSize: 20),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // )
             ],
           ),
           Container(
