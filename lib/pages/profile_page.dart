@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:uas_mob/data/hive/hive_boxes.dart';
-import 'package:uas_mob/data/models/user_model.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -24,7 +21,9 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
   }
 
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>(); // global form key
+
+  // controler for formfield
   final conName = TextEditingController();
   final conEmail = TextEditingController();
   final conWeight = TextEditingController();
@@ -33,14 +32,13 @@ class _ProfilePageState extends State<ProfilePage> {
   final conPob = TextEditingController();
   final conGender = TextEditingController();
 
-  @override
-  void dispose() {
-    Hive.close(); // Closing All Boxes
-
-    //Hive.box('users').close();// Closing Selected Box
-
-    super.dispose();
-  }
+  String? unama = '';
+  String? uemail = '';
+  String? uweight = '';
+  String? uheight = '';
+  String? udob;
+  String? upob = '';
+  String? ugender;
 
   // Crud Function
   Future<void> addUser(String nama, String email, String weight, String height,
@@ -49,32 +47,24 @@ class _ProfilePageState extends State<ProfilePage> {
       _formKey.currentState!.save();
     }
 
-    final user = UserModel(
-        nama: nama,
-        email: email,
-        weight: weight,
-        hieght: height,
-        dob: dob,
-        pob: pob,
-        gender: gender);
-    final box = Boxes.getUser();
-    box.add(user).then((value) => clearPage());
+    unama = nama;
+    uemail = email;
+    uweight = weight;
+    uheight = height;
+    udob = dob;
+    upob = pob;
+    ugender = gender;
   }
 
-  Future<void> editUser(UserModel userModel) async {
-    conName.text = userModel.nama!;
-    conEmail.text = userModel.email!;
-    conWeight.text = userModel.weight;
-    conHeight.text = userModel.hieght;
-    conDob.text = userModel.dob;
-    conPob.text = userModel.pob;
-    conGender.text = userModel.gender;
-
-    deleteUser(userModel);
-  }
-
-  Future<void> deleteUser(UserModel userModel) async {
-    userModel.delete();
+  Future<void> editUser(String nama, String email, String weight, String height,
+      String pob, String dob, String gender) async {
+    conName.text = nama;
+    conEmail.text = email;
+    conWeight.text = weight;
+    conHeight.text = height;
+    conDob.text = dob;
+    conPob.text = pob;
+    conGender.text = gender;
   }
 
   clearPage() {
@@ -172,22 +162,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                         lastDate: DateTime(2101));
 
                                     if (pickedDate != null) {
-                                      print(
-                                          pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                                      //pickedDate output format => 2021-03-10 00:00:00.000
                                       String formattedDate =
                                           DateFormat('yyyy-MM-dd')
                                               .format(pickedDate);
-                                      print(
-                                          formattedDate); //formatted date output using intl package =>  2021-03-16
+                                      //formatted date output using intl package =>  2021-03-16
                                       //you can implement different kind of Date Format here according to your requirement
 
                                       setState(() {
                                         dateinput.text =
                                             formattedDate; //set output date to TextField value.
                                       });
-                                    } else {
-                                      print("Date is not selected");
-                                    }
+                                    } else {}
                                   },
                                 ),
                                 TextFormField(
@@ -238,17 +224,24 @@ class _ProfilePageState extends State<ProfilePage> {
                           TextButton(
                               child: const Text("Submit"),
                               onPressed: () {
-                                addUser(
-                                    conName.text,
-                                    conEmail.text,
-                                    conWeight.text,
-                                    conHeight.text,
-                                    conPob.text,
-                                    conDob.text,
-                                    conGender.text);
+                                setState(() {
+                                  addUser(
+                                      conName.text,
+                                      conEmail.text,
+                                      conWeight.text,
+                                      conHeight.text,
+                                      conPob.text,
+                                      conDob.text,
+                                      conGender.text);
+                                });
+                                Navigator.pop(context);
                               }),
                           TextButton(
-                              onPressed: () {}, child: const Text("Cancel"))
+                              onPressed: () {
+                                clearPage();
+                                Navigator.pop(context);
+                              },
+                              child: const Text("Cancel"))
                         ],
                       );
                     });
@@ -263,19 +256,22 @@ class _ProfilePageState extends State<ProfilePage> {
             alignment: Alignment.center,
             child: Column(
               children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.purple[100],
+                // ignore: prefer_const_constructors
+                Image(
+                  // ignore: prefer_const_constructors
+                  image: AssetImage(
+                      'assets/images/blank-profile-picture-gfd0b36f52_1280.png'),
+                  width: 200,
+                  height: 200,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                const Text('Nama Orang'),
+                Text("$unama"),
                 const SizedBox(
                   height: 5,
                 ),
-                const Text('EmailnyaOrang@gmail.com')
+                Text("$uemail")
               ],
             ),
           ),
@@ -291,14 +287,14 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [const Text('Weight'), const Text('75 kg')],
+                  children: [const Text("Weight"), Text("$uweight")],
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [const Text('Height'), const Text('185 cm')],
+                  children: [const Text('Height'), Text("$uheight")],
                 ),
                 const SizedBox(
                   height: 10,
@@ -307,7 +303,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text('Date of Birthday'),
-                    const Text('23-1-1982')
+                    Text("${dateinput.text}")
                   ],
                 ),
                 const SizedBox(
@@ -315,17 +311,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Place of Birthday'),
-                    const Text('Pnumbra')
-                  ],
+                  children: [const Text('Place of Birthday'), Text("$upob")],
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [const Text('Gender'), const Text('NonBinary')],
+                  children: [const Text('Gender'), Text("${_gender?.name}")],
                 ),
               ],
             ),

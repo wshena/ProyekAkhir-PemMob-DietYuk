@@ -7,9 +7,9 @@ import 'data/models/user_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  Hive.registerAdapter(UserModelAdapter());
-  await Hive.openBox<UserModel>('users');
+  // await Hive.initFlutter(); // initialize hive
+  // Hive.registerAdapter(UserModelAdapter());
+  // await Hive.openBox('user');
   runApp(const MyApp());
 }
 

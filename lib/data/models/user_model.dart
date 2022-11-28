@@ -8,10 +8,6 @@ import 'package:hive/hive.dart';
 
 part 'user_model.g.dart';
 
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
-
-String userModelToJson(UserModel data) => json.encode(data.toJson());
-
 @HiveType(typeId: 0)
 class UserModel extends HiveObject {
   UserModel({
@@ -25,9 +21,9 @@ class UserModel extends HiveObject {
   });
 
   @HiveField(0)
-  String? nama;
+  String nama;
   @HiveField(1)
-  String? email;
+  String email;
   @HiveField(2)
   String hieght;
   @HiveField(3)
@@ -38,24 +34,4 @@ class UserModel extends HiveObject {
   String pob;
   @HiveField(6)
   String gender;
-
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        nama: json["nama"],
-        email: json["email"],
-        hieght: json["hieght"],
-        weight: json["weight"],
-        dob: json["dob"],
-        pob: json["pob"],
-        gender: json["gender"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "nama": nama,
-        "email": email,
-        "hieght": hieght,
-        "weight": weight,
-        "dob": dob,
-        "pob": pob,
-        "gender": gender,
-      };
 }

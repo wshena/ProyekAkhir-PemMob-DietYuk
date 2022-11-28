@@ -1,7 +1,15 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: file_names, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
-import 'package:getwidget/getwidget.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:uas_mob/pages/main_page.dart';
+import 'package:uas_mob/pages/resepHarian/Jumat.dart';
+import 'package:uas_mob/pages/resepHarian/Kamis.dart';
+import 'package:uas_mob/pages/resepHarian/Minggu.dart';
+import 'package:uas_mob/pages/resepHarian/Rabu.dart';
+import 'package:uas_mob/pages/resepHarian/Sabtu.dart';
+import 'package:uas_mob/pages/resepHarian/Selasa.dart';
+import 'package:uas_mob/pages/resepHarian/Senin.dart';
 
 class DietResepPage extends StatefulWidget {
   const DietResepPage({super.key});
@@ -13,8 +21,12 @@ class DietResepPage extends StatefulWidget {
 class _DietResepPageState extends State<DietResepPage> {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -37,98 +49,62 @@ class _DietResepPageState extends State<DietResepPage> {
           ],
         ),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
+      // ignore: prefer_const_constructors
+      body: SingleChildScrollView(
         child: Column(
-          // ignore: prefer_const_literals_to_create_immutables
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Program Diet",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            CardGenerator(),
-            SizedBox(
-              height: 30,
-            ),
-            CarouselCard()
-          ],
-        ),
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              DefaultTabController(
+                  length: 7, // length of tabs
+                  initialIndex: 0,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        const TabBar(
+                          isScrollable: true,
+                          labelPadding: EdgeInsets.symmetric(horizontal: 15.0),
+                          unselectedLabelColor: Colors.black,
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          indicatorColor: Colors.green,
+                          indicator: BoxDecoration(
+                              gradient: LinearGradient(colors: [
+                                Colors.greenAccent,
+                                Colors.lightGreenAccent,
+                              ]),
+                              color: Colors.black),
+                          tabs: [
+                            Tab(
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text("Senin"),
+                              ),
+                            ),
+                            Tab(text: 'Selasa'),
+                            Tab(text: 'Rabu'),
+                            Tab(text: 'Kamis'),
+                            Tab(text: 'Jumat'),
+                            Tab(text: 'Sabtu'),
+                            Tab(text: 'Minggu'),
+                          ],
+                        ),
+                        Container(
+                            height: height * 1, //height of TabBarView
+                            decoration: const BoxDecoration(
+                                border: Border(
+                                    top: BorderSide(
+                                        color: Colors.grey, width: 0.5))),
+                            child: const TabBarView(children: <Widget>[
+                              Senin(),
+                              Selasa(),
+                              Rabu(),
+                              Kamis(),
+                              Jumat(),
+                              Sabtu(),
+                              Minggu(),
+                            ]))
+                      ])),
+            ]),
       ),
     );
   }
-}
-
-// ignore: non_constant_identifier_names
-Card CardGenerator() {
-  return Card(
-    child: Container(
-      padding: EdgeInsets.all(20),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Title(
-                  color: Colors.black,
-                  child: const Text(
-                    "Result of the week",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ))
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            // ignore: prefer_const_literals_to_create_immutables
-            children: [Text("Turun 10 kg"), Text("Resep diolah")],
-          )
-        ],
-      ),
-    ),
-  );
-}
-
-// ignore: non_constant_identifier_names
-GFItemsCarousel CarouselCard() {
-  final List<String> imageList = [
-    "https://cdn.pixabay.com/photo/2017/12/03/18/04/christmas-balls-2995437_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2017/12/13/00/23/christmas-3015776_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2019/12/19/10/55/christmas-market-4705877_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2019/12/20/00/03/road-4707345_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2019/12/22/04/18/x-mas-4711785__340.jpg",
-    "https://cdn.pixabay.com/photo/2016/11/22/07/09/spruce-1848543__340.jpg"
-  ];
-  return GFItemsCarousel(
-    rowCount: 3,
-    children: imageList.map(
-      (url) {
-        return Container(
-          padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(5.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            image: DecorationImage(image: NetworkImage(url), fit: BoxFit.cover),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-            child: Container(
-              alignment: Alignment.bottomRight,
-              child: IconButton(
-                  style: IconButton.styleFrom(backgroundColor: Colors.black),
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.navigate_next_sharp,
-                    color: Colors.white,
-                    size: 50,
-                  )),
-            ),
-          ),
-        );
-      },
-    ).toList(),
-  );
 }

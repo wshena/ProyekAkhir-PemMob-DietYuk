@@ -13,28 +13,31 @@ class ProgressPage extends StatefulWidget {
 List<LineChartBarData> lineChartBarData = [
   LineChartBarData(isCurved: true, spots: [
     const FlSpot(1, 10),
-    const FlSpot(2, 12),
-    const FlSpot(3, 10),
-    const FlSpot(4, 7),
+    const FlSpot(2, 42),
+    const FlSpot(3, 32),
+    const FlSpot(4, 32),
     const FlSpot(5, 8),
     const FlSpot(6, 10),
   ])
 ];
 
+final _formKey = GlobalKey<FormState>(); // global form key
+
 TextEditingController conBerat = TextEditingController();
 TextEditingController conHari = TextEditingController();
 
-String beratBadan = '0';
-String hariKe = '0';
+String? beratBadan = '0';
+String? hariKe = '0';
+
+Future<void> addBerat(String berat, String hari) async {
+  if (_formKey.currentState!.validate()) {
+    _formKey.currentState!.save();
+  }
+  beratBadan = berat;
+  hariKe = hari;
+}
 
 class _ProgressPageState extends State<ProgressPage> {
-  void setBeratBadan() {
-    setState(() {
-      beratBadan = conBerat.text;
-      hariKe = conHari.text;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -63,7 +66,6 @@ class _ProgressPageState extends State<ProgressPage> {
                   IconButton(
                       onPressed: () {
                         ShowFormDialog(context);
-                        setBeratBadan();
                       },
                       icon: const Icon(Icons.add))
                 ],
@@ -98,6 +100,7 @@ Future<void> ShowFormDialog(context) {
           content: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Form(
+              key: _formKey,
               child: Column(
                 children: <Widget>[
                   TextFormField(
@@ -120,8 +123,8 @@ Future<void> ShowFormDialog(context) {
             TextButton(
                 child: const Text("Simpan"),
                 onPressed: () {
-                  beratBadan = conBerat.text;
-                  hariKe = conHari.text;
+                  addBerat(conBerat.text, conHari.text);
+
                   Navigator.pop(context);
                 }),
             TextButton(

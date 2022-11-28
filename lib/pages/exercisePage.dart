@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
 import 'package:uas_mob/pages/dietResep.dart';
 import 'package:uas_mob/pages/lanjutanPage.dart';
 import 'package:uas_mob/pages/menengahPage.dart';
 import 'package:uas_mob/pages/pemulaPage.dart';
-import 'package:uas_mob/pages/profile_page.dart';
 
 class ExercisePage extends StatelessWidget {
   const ExercisePage({super.key});
