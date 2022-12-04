@@ -24,7 +24,8 @@ class _ProfilePageState extends State<ProfilePage> {
     dateinput.text = ""; //set the initial value of text field
     void initState() {
       super.initState();
-      getData();
+      // getData();
+      getActualData();
     }
 
     super.initState();
@@ -49,6 +50,14 @@ class _ProfilePageState extends State<ProfilePage> {
   String udob = '';
   String upob = '';
   String ugender = '';
+
+  String dnama = '';
+  String demail = '';
+  String dweight = '';
+  String dheight = '';
+  String ddob = '';
+  String dpob = '';
+  String dgender = '';
 
   void sharedPrefInit() async {
     try {
@@ -89,35 +98,64 @@ class _ProfilePageState extends State<ProfilePage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
     }
-    getData();
+    // getData();
+    // setState(() {
+    // });
+    dnama = nama;
+    demail = email;
+    dweight = weight;
+    dheight = height;
+    ddob = dob;
+    dpob = pob;
+    dgender = gender;
+
     setState(() {
-      unama = prefs.getString('nama') + nama;
-      uemail = prefs.getString('email') + email;
-      uweight = prefs.getString('weight') + weight;
-      uheight = prefs.getString('height') + height;
-      udob = prefs.getString('dob') + dob;
-      upob = prefs.getString('pob') + pob;
-      ugender = prefs.getString('gender') + gender;
+      // unama = (prefs.getString('nama'));
+      prefs.setString('nama', dnama);
+
+      // uemail = (prefs.getString('uemail'));
+      prefs.setString('email', demail);
+
+      // uweight = (prefs.getString('uweight'));
+      prefs.setString('weight', dweight);
+
+      // uheight = (prefs.getString('uheight'));
+      prefs.setString('height', dheight);
+
+      // udob = (prefs.getString('udob'));
+      prefs.setString('dob', ddob);
+
+      // upob = (prefs.getString('upob'));
+      prefs.setString('nama', dpob);
+
+      // ugender = (prefs.getString('ugender'));
+      prefs.setString('gender', dgender);
     });
-    setString('nama', unama);
-    setString('email', uemail);
-    setString('weight', uweight);
-    setString('height', uheight);
-    setString('dob', udob);
-    setString('nama', upob);
-    setString('gender', ugender);
   }
 
-  getData() async {
+  // getData() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     unama = (prefs.getString('nama') ?? '');
+  //     uemail = (prefs.getString('email') ?? '');
+  //     uweight = (prefs.getString('weight') ?? '');
+  //     uheight = (prefs.getString('height') ?? '');
+  //     udob = (prefs.getString('dob') ?? '');
+  //     upob = (prefs.getString('pob') ?? '');
+  //     ugender = (prefs.getString('gender') ?? '');
+  //   });
+  // }
+
+  getActualData() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      unama = (prefs.getString('nama') ?? '');
-      uemail = (prefs.getString('email') ?? '');
-      uweight = (prefs.getString('weight') ?? '');
-      uheight = (prefs.getString('height') ?? '');
-      udob = (prefs.getString('dob') ?? '');
-      upob = (prefs.getString('pob') ?? '');
-      ugender = (prefs.getString('gender') ?? '');
+      dnama = prefs.getString('nama') ?? '';
+      demail = prefs.getString('email') ?? '';
+      dweight = prefs.getString('weight') ?? '';
+      dheight = prefs.getString('height') ?? '';
+      ddob = prefs.getString('dob') ?? '';
+      dpob = prefs.getString('pob') ?? '';
+      dgender = prefs.getString('gender') ?? '';
     });
   }
 
@@ -332,11 +370,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 10,
                 ),
-                Text('$unama'),
+                Text(dnama),
                 const SizedBox(
                   height: 5,
                 ),
-                Text('$uemail')
+                Text(demail)
               ],
             ),
           ),
@@ -352,14 +390,14 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [const Text("Weight"), Text('$uweight')],
+                  children: [const Text("Weight"), Text(dweight)],
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [const Text('Height'), Text('$uheight')],
+                  children: [const Text('Height'), Text(dheight)],
                 ),
                 const SizedBox(
                   height: 10,
@@ -376,7 +414,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [const Text('Place of Birthday'), Text('$upob')],
+                  children: [const Text('Place of Birthday'), Text(dpob)],
                 ),
                 const SizedBox(
                   height: 10,
