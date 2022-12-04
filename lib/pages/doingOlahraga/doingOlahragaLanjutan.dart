@@ -81,10 +81,7 @@ class _DoingOlahragaLanjutanState extends State<DoingOlahragaLanjutan> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       // ignore: prefer_const_literals_to_create_immutables
-                      children: [
-                        const Icon(Icons.check),
-                        const Text("SELESAI")
-                      ],
+                      children: [const Icon(Icons.check), const Text("LANJUT")],
                     )),
               ),
               const SizedBox(
@@ -116,17 +113,36 @@ class _DoingOlahragaLanjutanState extends State<DoingOlahragaLanjutan> {
             ],
           ),
           const SizedBox(height: 15),
-          TextButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LanjutanPage()));
-              },
-              child: const Text(
-                "Kembali",
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ))
+          Container(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LanjutanPage()));
+                    },
+                    child: const Text(
+                      "Kembali",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    )),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LanjutanPage()));
+                    },
+                    child: const Text(
+                      "Selesai",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    )),
+              ],
+            ),
+          )
         ],
       ),
     );

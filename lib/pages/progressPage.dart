@@ -1,7 +1,8 @@
 // ignore: file_names
-
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/services.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ProgressPage extends StatefulWidget {
   const ProgressPage({super.key});
@@ -10,84 +11,76 @@ class ProgressPage extends StatefulWidget {
   State<ProgressPage> createState() => _ProgressPageState();
 }
 
-List<LineChartBarData> lineChartBarData = [
-  LineChartBarData(isCurved: true, spots: [
-    const FlSpot(1, 10),
-    const FlSpot(2, 42),
-    const FlSpot(3, 32),
-    const FlSpot(4, 32),
-    const FlSpot(5, 8),
-    const FlSpot(6, 10),
-  ])
-];
-
 final _formKey = GlobalKey<FormState>(); // global form key
 
 TextEditingController conBerat = TextEditingController();
 TextEditingController conHari = TextEditingController();
 
-String? beratBadan = '0';
-String? hariKe = '0';
+int? beratBadan = 0;
+int? hariKe = 0;
 
-Future<void> addBerat(String berat, String hari) async {
-  if (_formKey.currentState!.validate()) {
-    _formKey.currentState!.save();
-  }
-  beratBadan = berat;
-  hariKe = hari;
+void addData(String berat, String hari) {
+  beratBadan = int.parse(berat);
+  hariKe = int.parse(hari);
 }
 
+final List<ChartData> chartData = [
+  // ChartData(1, 50),
+  // ChartData(2, 20),
+  // ChartData(3, 43),
+  // ChartData(4, 55),
+  // ChartData(5, 60),
+  // ChartData(6, 65),
+  // ChartData(7, 60),
+];
+
+ChartSeriesController? _chartSeriesController;
+
 class _ProgressPageState extends State<ProgressPage> {
+  //Initialize the series controller
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      body: SingleChildScrollView(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        body: Center(
+            child: Container(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                "PROGRES ANDA : ",
+                "Progres Anda : ",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Berat Badan",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        ShowFormDialog(context);
-                      },
-                      icon: const Icon(Icons.add))
-                ],
-              ),
-              SizedBox(
-                width: width,
-                height: height * 0.5,
-                child: LineChart(LineChartData(
-                    minX: 1,
-                    minY: 0,
-                    maxX: 7,
-                    maxY: 100,
-                    lineBarsData: lineChartBarData)),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text("Berat badan anda saat ini : $beratBadan")
+              IconButton(
+                  onPressed: () {
+                    ShowFormDialog(context);
+                  },
+                  icon: const Icon(Icons.add))
             ],
-          )),
-    );
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          SfCartesianChart(series: <ChartSeries>[
+            // Renders line chart
+            LineSeries<ChartData, int>(
+                dataSource: chartData,
+                xValueMapper: (ChartData data, _) => data.x,
+                yValueMapper: (ChartData data, _) => data.y)
+          ]),
+        ],
+      ),
+    )));
   }
+}
+
+class ChartData {
+  ChartData(this.x, this.y);
+  final int x;
+  final int y;
 }
 
 // ignore: non_constant_identifier_names
@@ -105,12 +98,22 @@ Future<void> ShowFormDialog(context) {
                 children: <Widget>[
                   TextFormField(
                     controller: conBerat,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ], // Only numbers can be entered
+
                     decoration: const InputDecoration(
                       labelText: 'Berat Badan (kg)',
                     ),
                   ),
                   TextFormField(
                     controller: conHari,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ], // Only numbers can be entered
+
                     decoration: const InputDecoration(
                       labelText: 'Hari ke : ',
                     ),
@@ -123,8 +126,21 @@ Future<void> ShowFormDialog(context) {
             TextButton(
                 child: const Text("Simpan"),
                 onPressed: () {
-                  addBerat(conBerat.text, conHari.text);
-
+                  // ignore: list_remove_unrelated_type
+                  addData(conBerat.text, conHari.text);
+                  if (chartData.isEmpty) {
+                    chartData.add(ChartData(hariKe!, beratBadan!));
+                    _chartSeriesController?.updateDataSource(
+                      addedDataIndexes: <int>[hariKe!],
+                      removedDataIndexes: <int>[hariKe!],
+                    );
+                  } else {
+                    chartData.add(ChartData(hariKe!, beratBadan!));
+                    _chartSeriesController?.updateDataSource(
+                      addedDataIndexes: <int>[hariKe!],
+                      removedDataIndexes: <int>[hariKe!],
+                    );
+                  }
                   Navigator.pop(context);
                 }),
             TextButton(

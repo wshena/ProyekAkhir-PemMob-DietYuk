@@ -4,12 +4,16 @@ import 'package:uas_mob/pages/lanjutanPage.dart';
 import 'package:uas_mob/pages/menengahPage.dart';
 import 'package:uas_mob/pages/pemulaPage.dart';
 
-class ExercisePage extends StatelessWidget {
+class ExercisePage extends StatefulWidget {
   const ExercisePage({super.key});
 
   @override
+  State<ExercisePage> createState() => _ExercisePageState();
+}
+
+class _ExercisePageState extends State<ExercisePage> {
+  @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
     return ListView(children: [
@@ -26,6 +30,7 @@ class ExercisePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
+                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         const Text(
                           "0",
@@ -43,6 +48,7 @@ class ExercisePage extends StatelessWidget {
                       ],
                     ),
                     Column(
+                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         const Text(
                           "0",
@@ -60,6 +66,7 @@ class ExercisePage extends StatelessWidget {
                       ],
                     ),
                     Column(
+                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         const Text(
                           "0",

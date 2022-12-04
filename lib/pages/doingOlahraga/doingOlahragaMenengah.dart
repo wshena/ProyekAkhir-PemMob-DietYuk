@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:uas_mob/pages/menengahPage.dart';
-import 'package:uas_mob/pages/pemulaPage.dart';
 
 class DoingOlahragaMenengah extends StatefulWidget {
   const DoingOlahragaMenengah({super.key});
@@ -113,17 +110,36 @@ class _DoingOlahragaMenengahState extends State<DoingOlahragaMenengah> {
             ],
           ),
           const SizedBox(height: 15),
-          TextButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MenengahPage()));
-              },
-              child: const Text(
-                "Kembali",
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ))
+          Container(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MenengahPage()));
+                    },
+                    child: const Text(
+                      "Kembali",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    )),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MenengahPage()));
+                    },
+                    child: const Text(
+                      "Selesai",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    )),
+              ],
+            ),
+          )
         ],
       ),
     );
