@@ -134,11 +134,22 @@ Future<void> ShowFormDialog(context) {
                       addedDataIndexes: <int>[hariKe!],
                       removedDataIndexes: <int>[hariKe!],
                     );
-                  } else {
+                    // ignore: iterable_contains_unrelated_type
+                  } else if (chartData
+                          .indexWhere((element) => element.x == hariKe) ==
+                      hariKe) {
+                    chartData.removeWhere((item) => item.x == hariKe);
                     chartData.add(ChartData(hariKe!, beratBadan!));
                     _chartSeriesController?.updateDataSource(
-                      addedDataIndexes: <int>[hariKe!],
                       removedDataIndexes: <int>[hariKe!],
+                      updatedDataIndexes: <int>[hariKe!],
+                    );
+                  } else {
+                    // chartData.removeAt(hariKe!);
+                    chartData.add(ChartData(hariKe!, beratBadan!));
+                    _chartSeriesController?.updateDataSource(
+                      // removedDataIndexes: <int>[hariKe!],
+                      addedDataIndexes: <int>[hariKe!],
                     );
                   }
                   Navigator.pop(context);

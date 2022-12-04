@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uas_mob/pages/welcomePage.dart';
 
-import 'data/models/user_model.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await Hive.initFlutter(); // initialize hive
@@ -33,6 +31,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _MyHomePageState createState() => _MyHomePageState();
 }
 

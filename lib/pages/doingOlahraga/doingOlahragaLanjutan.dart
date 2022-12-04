@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uas_mob/pages/lanjutanPage.dart';
-import 'package:uas_mob/pages/menengahPage.dart';
-import 'package:uas_mob/pages/pemulaPage.dart';
 
 class DoingOlahragaLanjutan extends StatefulWidget {
   const DoingOlahragaLanjutan({super.key});
@@ -31,6 +29,46 @@ class _DoingOlahragaLanjutanState extends State<DoingOlahragaLanjutan> {
     Olahraga(nama: "plank", jumlah: "30 detik"),
   ];
   int index = 0;
+
+  int _latihan = 0;
+  int _menit = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCounterLatihan();
+    _loadCounterMenit();
+  }
+
+  _loadCounterLatihan() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _latihan = (prefs.getInt('latihan') ?? 0);
+    });
+  }
+
+  _incrementCounterLatihan() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _latihan = (prefs.getInt('latihan') ?? 0) + 1;
+      prefs.setInt('latihan', _latihan);
+    });
+  }
+
+  _loadCounterMenit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _menit = (prefs.getInt('menit') ?? 0);
+    });
+  }
+
+  _incrementCounterMenit() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _menit = (prefs.getInt('menit') ?? 0) + 40;
+      prefs.setInt('menit', _menit);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +169,8 @@ class _DoingOlahragaLanjutanState extends State<DoingOlahragaLanjutan> {
                     )),
                 TextButton(
                     onPressed: () {
+                      _incrementCounterLatihan();
+                      _incrementCounterMenit();
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

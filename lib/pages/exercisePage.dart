@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uas_mob/pages/dietResep.dart';
 import 'package:uas_mob/pages/lanjutanPage.dart';
 import 'package:uas_mob/pages/menengahPage.dart';
@@ -12,6 +13,31 @@ class ExercisePage extends StatefulWidget {
 }
 
 class _ExercisePageState extends State<ExercisePage> {
+  int _latihan = 0;
+  int _menit = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCounterLatihan();
+    _loadCounterMenit();
+  }
+
+  // Loading counter value on start
+  void _loadCounterLatihan() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _latihan = (prefs.getInt('latihan') ?? 0);
+    });
+  }
+
+  void _loadCounterMenit() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _menit = (prefs.getInt('menit') ?? 0);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -32,9 +58,9 @@ class _ExercisePageState extends State<ExercisePage> {
                     Column(
                       // ignore: prefer_const_literals_to_create_immutables
                       children: [
-                        const Text(
-                          "0",
-                          style: TextStyle(
+                        Text(
+                          "$_latihan",
+                          style: const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
@@ -50,27 +76,9 @@ class _ExercisePageState extends State<ExercisePage> {
                     Column(
                       // ignore: prefer_const_literals_to_create_immutables
                       children: [
-                        const Text(
-                          "0",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 3,
-                        ),
-                        const Text(
-                          "Kkal",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                    Column(
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: [
-                        const Text(
-                          "0",
-                          style: TextStyle(
+                        Text(
+                          "$_menit",
+                          style: const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
@@ -88,46 +96,49 @@ class _ExercisePageState extends State<ExercisePage> {
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 20, bottom: 20),
-            width: width * 0.9,
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.green.shade200,
-                    offset: const Offset(
-                      5.0,
-                      5.0,
-                    ),
-                    blurRadius: 10.0,
-                    spreadRadius: 2.0,
-                  ), //BoxShadow
-                  const BoxShadow(
-                    color: Colors.white,
-                    offset: Offset(0.0, 0.0),
-                    blurRadius: 0.0,
-                    spreadRadius: 0.0,
-                  ),
-                ]),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Target Mingguan".toUpperCase(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-                const Text(
-                  "0/6",
-                  style: TextStyle(color: Colors.blue),
-                )
-              ],
-            ),
+          // Container(
+          //   margin: const EdgeInsets.only(top: 20, bottom: 20),
+          //   width: width * 0.9,
+          //   padding: const EdgeInsets.all(20),
+          //   decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(10),
+          //       color: Colors.white,
+          //       boxShadow: [
+          //         BoxShadow(
+          //           color: Colors.green.shade200,
+          //           offset: const Offset(
+          //             5.0,
+          //             5.0,
+          //           ),
+          //           blurRadius: 10.0,
+          //           spreadRadius: 2.0,
+          //         ), //BoxShadow
+          //         const BoxShadow(
+          //           color: Colors.white,
+          //           offset: Offset(0.0, 0.0),
+          //           blurRadius: 0.0,
+          //           spreadRadius: 0.0,
+          //         ),
+          //       ]),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       Text(
+          //         "Target Mingguan".toUpperCase(),
+          //         style: const TextStyle(
+          //           fontWeight: FontWeight.bold,
+          //           fontSize: 20,
+          //         ),
+          //       ),
+          //       const Text(
+          //         "0/6",
+          //         style: TextStyle(color: Colors.blue),
+          //       )
+          //     ],
+          //   ),
+          // ),
+          const SizedBox(
+            height: 20,
           ),
           Column(
             children: [
@@ -159,6 +170,7 @@ class _ExercisePageState extends State<ExercisePage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         const Text(
                           'PROGRAM DIET',
@@ -214,6 +226,7 @@ class _ExercisePageState extends State<ExercisePage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         const Text(
                           'PROGRAM OLAHRAGA PEMULA',
@@ -251,6 +264,7 @@ class _ExercisePageState extends State<ExercisePage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         const Text(
                           'PROGRAM OLAHRAGA MENENGAH',
@@ -288,6 +302,7 @@ class _ExercisePageState extends State<ExercisePage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         const Text(
                           'PROGRAM OLAHRAGA LANJUTAN',

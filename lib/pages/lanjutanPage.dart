@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
 import 'package:uas_mob/pages/doingOlahraga/doingOlahragaLanjutan.dart';
-import 'package:uas_mob/pages/exercisePage.dart';
 import 'package:uas_mob/pages/main_page.dart';
 
 class LanjutanPage extends StatefulWidget {
@@ -99,7 +98,7 @@ class _LanjutanPageState extends State<LanjutanPage> {
                         const SizedBox(
                           width: 10,
                         ),
-                        const Text("20 Menit",
+                        const Text("40 Menit",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16)),
                         const SizedBox(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -15,9 +17,16 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Gender? _gender = Gender.male;
 
+  get prefs => null;
+
   @override
   void initState() {
     dateinput.text = ""; //set the initial value of text field
+    void initState() {
+      super.initState();
+      getData();
+    }
+
     super.initState();
   }
 
@@ -32,28 +41,84 @@ class _ProfilePageState extends State<ProfilePage> {
   final conPob = TextEditingController();
   final conGender = TextEditingController();
 
-  String? unama = '';
-  String? uemail = '';
-  String? uweight = '';
-  String? uheight = '';
-  String? udob;
-  String? upob = '';
-  String? ugender;
+  // user input data
+  String unama = '';
+  String uemail = '';
+  String uweight = '';
+  String uheight = '';
+  String udob = '';
+  String upob = '';
+  String ugender = '';
+
+  void sharedPrefInit() async {
+    try {
+      /// Checks if shared preference exist
+      Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+      final SharedPreferences prefs = await _prefs;
+      prefs.getString("app-name");
+    } catch (err) {
+      /// setMockInitialValues initiates shared preference
+      /// Adds app-name
+      SharedPreferences.setMockInitialValues({});
+      Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+      final SharedPreferences prefs = await _prefs;
+      prefs.setString("app-name", "my-app");
+    }
+  }
+
+  // add data
+  dynamic setString(key, val) async {
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    var _res = prefs.setString("$key", val);
+    return _res;
+  }
+
+  // get data
+  dynamic getString(key) async {
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    String _res = prefs.getString("$key");
+    return _res;
+  }
 
   // Crud Function
   Future<void> addUser(String nama, String email, String weight, String height,
       String pob, String dob, String gender) async {
+    final prefs = await SharedPreferences.getInstance();
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
     }
+    getData();
+    setState(() {
+      unama = prefs.getString('nama') + nama;
+      uemail = prefs.getString('email') + email;
+      uweight = prefs.getString('weight') + weight;
+      uheight = prefs.getString('height') + height;
+      udob = prefs.getString('dob') + dob;
+      upob = prefs.getString('pob') + pob;
+      ugender = prefs.getString('gender') + gender;
+    });
+    setString('nama', unama);
+    setString('email', uemail);
+    setString('weight', uweight);
+    setString('height', uheight);
+    setString('dob', udob);
+    setString('nama', upob);
+    setString('gender', ugender);
+  }
 
-    unama = nama;
-    uemail = email;
-    uweight = weight;
-    uheight = height;
-    udob = dob;
-    upob = pob;
-    ugender = gender;
+  getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      unama = (prefs.getString('nama') ?? '');
+      uemail = (prefs.getString('email') ?? '');
+      uweight = (prefs.getString('weight') ?? '');
+      uheight = (prefs.getString('height') ?? '');
+      udob = (prefs.getString('dob') ?? '');
+      upob = (prefs.getString('pob') ?? '');
+      ugender = (prefs.getString('gender') ?? '');
+    });
   }
 
   Future<void> editUser(String nama, String email, String weight, String height,
@@ -267,11 +332,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 10,
                 ),
-                Text("$unama"),
+                Text('$unama'),
                 const SizedBox(
                   height: 5,
                 ),
-                Text("$uemail")
+                Text('$uemail')
               ],
             ),
           ),
@@ -287,14 +352,14 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [const Text("Weight"), Text("$uweight")],
+                  children: [const Text("Weight"), Text('$uweight')],
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [const Text('Height'), Text("$uheight")],
+                  children: [const Text('Height'), Text('$uheight')],
                 ),
                 const SizedBox(
                   height: 10,
@@ -303,7 +368,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text('Date of Birthday'),
-                    Text("${dateinput.text}")
+                    Text(dateinput.text)
                   ],
                 ),
                 const SizedBox(
@@ -311,7 +376,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [const Text('Place of Birthday'), Text("$upob")],
+                  children: [const Text('Place of Birthday'), Text('$upob')],
                 ),
                 const SizedBox(
                   height: 10,

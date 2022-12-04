@@ -95,7 +95,7 @@ class _PemulaPageState extends State<PemulaPage> {
                         const SizedBox(
                           width: 10,
                         ),
-                        const Text("20 Menit",
+                        const Text("15 Menit",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16)),
                         const SizedBox(

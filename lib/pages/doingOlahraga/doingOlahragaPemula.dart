@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uas_mob/pages/pemulaPage.dart';
 
 class DoingOlahraga extends StatefulWidget {
@@ -23,6 +25,46 @@ class _DoingOlahragaState extends State<DoingOlahraga> {
     Olahraga(nama: "Plank", jumlah: "30 detik"),
   ];
   int index = 0;
+
+  int _latihan = 0;
+  int _menit = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCounterLatihan();
+    _loadCounterMenit();
+  }
+
+  _loadCounterLatihan() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _latihan = (prefs.getInt('latihan') ?? 0);
+    });
+  }
+
+  _incrementCounterLatihan() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _latihan = (prefs.getInt('latihan') ?? 0) + 1;
+      prefs.setInt('latihan', _latihan);
+    });
+  }
+
+  _loadCounterMenit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _menit = (prefs.getInt('menit') ?? 0);
+    });
+  }
+
+  _incrementCounterMenit() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _menit = (prefs.getInt('menit') ?? 0) + 15;
+      prefs.setInt('menit', _menit);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +168,8 @@ class _DoingOlahragaState extends State<DoingOlahraga> {
                     )),
                 TextButton(
                     onPressed: () {
+                      _incrementCounterLatihan();
+                      _incrementCounterMenit();
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
