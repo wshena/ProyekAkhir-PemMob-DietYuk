@@ -22,12 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     dateinput.text = ""; //set the initial value of text field
-    void initState() {
-      super.initState();
-      // getData();
-      getActualData();
-    }
-
+    getActualData();
     super.initState();
   }
 
@@ -126,7 +121,7 @@ class _ProfilePageState extends State<ProfilePage> {
       prefs.setString('dob', ddob);
 
       // upob = (prefs.getString('upob'));
-      prefs.setString('nama', dpob);
+      prefs.setString('pob', dpob);
 
       // ugender = (prefs.getString('ugender'));
       prefs.setString('gender', dgender);
@@ -328,13 +323,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: const Text("Submit"),
                               onPressed: () {
                                 setState(() {
+                                  getActualData();
                                   addUser(
                                       conName.text,
                                       conEmail.text,
                                       conWeight.text,
                                       conHeight.text,
                                       conPob.text,
-                                      conDob.text,
+                                      dateinput.text,
                                       conGender.text);
                                 });
                                 Navigator.pop(context);
@@ -404,10 +400,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Date of Birthday'),
-                    Text(dateinput.text)
-                  ],
+                  children: [const Text('Date of Birthday'), Text(ddob)],
                 ),
                 const SizedBox(
                   height: 10,
